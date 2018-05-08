@@ -12,23 +12,24 @@ let targetSumExistsInTwoNumbers = (values, target) => {
 console.log(targetSumExistsInTwoNumbers([10, 20], 40))
 
 let findHighest = (values) => {
-  let freq = []
+  let freq = new Map()
   let target = 0
   let result = []
   values.map((elemnt) => {
-    if (typeof freq[elemnt] === 'undefined') {
-      freq[elemnt] = 1
+    if (typeof freq.get(elemnt) === 'undefined') {
+      freq.set(elemnt, 1)
     } else {
-      freq[elemnt]++
+      freq.set(elemnt, freq.get(elemnt) + 1)
     }
   })
-  for (let key in freq) {
-    if (freq[key] > target) {
-      target = freq[key]
+
+  for (const [key, value] of freq) {
+    if (value > target) {
+      target = value
     }
   }
-  for (let key in freq) {
-    if (freq[key] === target) {
+  for (const [key, value] of freq) {
+    if (value === target) {
       result.push(key)
     }
   }
